@@ -5,7 +5,7 @@ param(
 $projectRoot = Split-Path $PSScriptRoot -Parent
 
 if (-not $SourceDir) {
-    $SourceDir = $projectRoot
+    $SourceDir = Join-Path $projectRoot "scratchpad"
 }
 
 $datedRoot = Join-Path $projectRoot "filing-cabinet\_dated"

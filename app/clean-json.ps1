@@ -3,15 +3,16 @@ param(
 )
 
 $projectRoot = Split-Path $PSScriptRoot -Parent
+$scratchpad  = Join-Path $projectRoot "scratchpad"
 
 if (-not $Path) {
-    $latest = Get-ChildItem -Path $projectRoot -File |
+    $latest = Get-ChildItem -Path $scratchpad -File |
         Where-Object { $_.Name -match '^\d{6}-\d{2}\.json$' } |
         Sort-Object LastWriteTime -Descending |
         Select-Object -First 1
 
     if (-not $latest) {
-        Write-Host "No dated JSON files found in $projectRoot"
+        Write-Host "No dated JSON files found in $scratchpad"
         exit
     }
     $Path = $latest.FullName

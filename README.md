@@ -16,10 +16,10 @@ All scripts live in the `app/` folder. Use the `.bat` files for Stream Deck or d
 
 ### New JSON — `app/new-json.bat`
 
-Creates a new dated JSON file in the project root and opens it in VS Code.
+Creates a new dated JSON file in the `scratchpad/` folder and opens it in VS Code.
 
 - File names follow the pattern `MMddyy-##.json` (e.g. `052726-01.json` for May 27, 2026)
-- The increment (`-01`, `-02`, ...) auto-advances based on what already exists — both in the project root and in the archive — so numbers never repeat on the same day
+- The increment (`-01`, `-02`, ...) auto-advances based on what already exists — both in `scratchpad/` and in the archive — so numbers never repeat on the same day
 - If the clipboard contains text, it's written to the file as-is
 - If the clipboard is empty, the file starts blank
 
@@ -32,7 +32,7 @@ Creates a new dated JSON file in the project root and opens it in VS Code.
 
 ### Clean JSON — `app/clean-json.bat`
 
-Parses and pretty-prints the most recently modified dated JSON file in the project root.
+Parses and pretty-prints the most recently modified dated JSON file in `scratchpad/`.
 
 Useful when the JSON was pasted in escaped form (e.g. a quoted string with `\"` instead of raw `"`). The script detects that case and unwraps it automatically.
 
@@ -43,14 +43,14 @@ Useful when the JSON was pasted in escaped form (e.g. a quoted string with `\"` 
 
 **Terminal (specific file):**
 ```
-.\app\clean-json.ps1 -Path "052726-01.json"
+.\app\clean-json.ps1 -Path "scratchpad\052726-01.json"
 ```
 
 ---
 
 ### Collect — `app/collect.bat`
 
-Moves all dated JSON files from the project root into `filing-cabinet/_dated/`, organized by date:
+Moves all dated JSON files from `scratchpad/` into `filing-cabinet/_dated/`, organized by date:
 
 ```
 filing-cabinet/
@@ -64,7 +64,7 @@ filing-cabinet/
 
 Skips any file that already exists at the destination and reports what was skipped.
 
-**Terminal (project root):**
+**Terminal (scratchpad):**
 ```
 .\app\collect.ps1
 ```
@@ -93,9 +93,10 @@ If you move this folder to a new machine, just re-point these three paths. Nothi
 ```
 json-scratch/
   app/                   scripts (don't edit unless customizing)
+  scratchpad/            active scratch files land here, get collected
+    MMddyy-##.json
   filing-cabinet/
     _dated/              archive, organized by year/month/day
-  welcome.md             this file
-  .gitignore             ignores loose dated JSON files
-  MMddyy-##.json         active scratch files (land here, get collected)
+  README.md              this file
+  .gitignore             ignores dated JSON files in scratchpad/
 ```
